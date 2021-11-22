@@ -6,12 +6,12 @@ import 'package:flutterproviderarchitecture/ui/shared/ui_helpers.dart';
 
 class LoginHeader extends StatelessWidget {
   final TextEditingController controller;
-  final String validationMessage;
+  final String? validationMessage;
 
   const LoginHeader({
     Key? key,
     required this.controller,
-    required this.validationMessage,
+    this.validationMessage,
   }) : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class LoginHeader extends StatelessWidget {
       const Text('Enter a number between 1 - 10', style: subHeaderStyle),
       LoginTextField(controller),
       validationMessage != null
-          ? Text(validationMessage, style: const TextStyle(color: Colors.red))
+          ? Text(validationMessage!, style: const TextStyle(color: Colors.red))
           : Container()
     ]);
   }
