@@ -3,12 +3,14 @@ class Post {
   int id;
   String title;
   String body;
+  int likes;
 
   Post({
     required this.userId,
     required this.id,
     required this.title,
     required this.body,
+    this.likes = 0,
   });
 
   factory Post.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class Post {
       id: json['id'],
       title: json['title'],
       body: json['body'],
+      likes: 0,
     );
   }
 
