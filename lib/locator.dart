@@ -15,8 +15,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => Api());
   locator.registerLazySingleton(() => PostsService());
 
-  locator.registerLazySingleton(() => LoginModel());
+  locator.registerFactory(() => LoginModel());
+  locator.registerFactory(() => LikeButtonModel());
   locator.registerFactory(() => HomeModel());
   locator.registerFactory(() => CommentsModel());
-  locator.registerSingleton(() => LikeButtonModel());
 }
