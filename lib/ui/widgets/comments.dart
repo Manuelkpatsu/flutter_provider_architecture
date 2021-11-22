@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterproviderarchitecture/core/enums.dart';
 import 'package:flutterproviderarchitecture/core/models/comment.dart';
+import 'package:flutterproviderarchitecture/core/view_models/comments_model.dart';
 import 'package:flutterproviderarchitecture/ui/shared/app_colors.dart';
 import 'package:flutterproviderarchitecture/ui/shared/ui_helpers.dart';
+import 'package:flutterproviderarchitecture/ui/views/base_view.dart';
 
 class Comments extends StatelessWidget {
   final int postId;
@@ -10,7 +13,16 @@ class Comments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('I am comments '));
+    return BaseView<CommentsModel>(
+      onModelReady: (model) => model.fetchComments(postId),
+      builder: (context, model, child) => model.state == ViewState.Busy
+          ? const Center(child: CircularProgressIndicator())
+          : Expanded(
+              child: ListView(
+                children: model.comments.map((comment) => CommentItem(comment)).toList(),
+              ),
+            ),
+    );
   }
 }
 
@@ -25,8 +37,8 @@ class CommentItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10.0),
       margin: const EdgeInsets.symmetric(vertical: 10.0),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0), color: commentColor),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(10.0), color: commentColor),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
